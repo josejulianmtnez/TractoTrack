@@ -26,7 +26,7 @@
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            {{-- <th>FOTO</th> --}}
+                                            <th>FOTO</th>
                                             <th>NOMBRE</th>
                                             <th>TELEFONO</th>
                                             <th>EMAIL</th>
