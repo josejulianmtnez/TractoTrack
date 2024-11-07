@@ -43,7 +43,7 @@
                                             @foreach($users as $user)
                                                 <tr>
                                                     <td scope="row">{{ $user->id }}</td>
-                                                    {{-- <td>
+                                                    <td>
                                                         @if ($user->getFirstMediaUrl('userGallery'))
                                                             <img src="{{ $user->getFirstMediaUrl('userGallery') }}"
                                                                 alt="Foto de {{ $user->name }}"
@@ -52,7 +52,7 @@
                                                             <img src="{{ asset('img/userDefault.png') }}"
                                                                 style="width: 50px; height: 50px; border-radius: 50%;">
                                                         @endif
-                                                    </td> --}}
+                                                    </td>
                                                     <td>{{ $user->name }} {{ $user->last_name }}</td>
                                                     <td>{{ $user->phone }}</td>
                                                     <td>{{ $user->email }}</td>
@@ -74,15 +74,15 @@
                                                         </div>
                                                     </td>
                                                 </tr>
-                                                {{-- @include('users.edit')
+                                                @include('users.edit')
                                                 @include('users.delete')
                                                 @include('users.show')
-                                                @include('users.editPassword') --}}
+                                                @include('users.editPassword')
                                             @endforeach
                                         @endif
                                     </tbody>
                                 </table>
-                                {{-- @include('users.create') --}}
+                                @include('users.create')
                             </div>
                         </div>
                     </div>

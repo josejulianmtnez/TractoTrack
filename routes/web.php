@@ -23,5 +23,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['middleware' => ['can:viewUsers']], function () {
         Route::get('/users', [UserController::class, 'index'])->name('users.index');
         Route::resource('users', UserController::class);
+        Route::post('/users/{user}/updateRole', [UserController::class, 'updateRole'])->name('users.updateRole');
+        Route::put('/users/{user}/updatePassword', [UserController::class, 'updatePassword'])->name('users.updatePassword');
     });
 });

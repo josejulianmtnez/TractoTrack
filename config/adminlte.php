@@ -326,7 +326,7 @@ return [
         [
             'text' => 'Diesel',
             'url' => '/fuel-loads',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-gas-pump',
             'can'  =>'viewFuelLoads',
         ],
     ],
