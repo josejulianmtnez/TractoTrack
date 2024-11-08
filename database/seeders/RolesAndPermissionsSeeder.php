@@ -14,15 +14,27 @@ class RolesAndPermissionsSeeder extends Seeder
     public function run()
     {
         $roleAdmin = Role::create(['name' => 'Admin']);
-        $roleDriver = Role::create(['name' => 'Chofer']);
+        $roleTruckDriver = Role::create(['name' => 'Chofer']);
 
         Permission::create([
             'name' => 'viewUsers',
             'description' => 'Permite ver los Usuarios registrados.'
         ])->assignRole($roleAdmin);
         Permission::create([
+            'name' => 'viewTrucks',
+            'description' => 'Permite ver los Trailers registrados.'
+        ])->assignRole($roleAdmin);
+        Permission::create([
+            'name' => 'viewFlatbeds',
+            'description' => 'Permite ver las Plataformas registrados.'
+        ])->assignRole($roleAdmin);
+        Permission::create([
             'name' => 'viewFuelLoads',
             'description' => 'Permite ver las Cargas de Diesel'
-        ])->assignRole($roleAdmin, $roleDriver);
+        ])->assignRole([$roleAdmin, $roleTruckDriver]);
+        Permission::create([
+            'name' => 'selectTruck',
+            'description' => 'Permite asignar Trailers a los Choferes.'
+        ])->assignRole($roleTruckDriver);    
     }
 }

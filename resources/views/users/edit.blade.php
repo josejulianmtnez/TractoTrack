@@ -45,25 +45,38 @@
                                             <input type="text" class="form-control" name="lastNameUpdate" id="lastNameUpdate" value="{{ $user->last_name }}" required>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="phoneUpdate" class="form-label">Teléfono (*)</label>
                                             <input type="tel" pattern="^\d{10}$" class="form-control" name="phoneUpdate" id="phoneUpdate" title="Debe contener exactamente 10 dígitos" value="{{ $user->phone }}" >
                                         </div>
                                     </div>
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="emailUpdate" class="form-label">Email(*)</label>
                                             <input type="email" class="form-control" name="emailUpdate" id="emailUpdate" value="{{ $user->email }}" required>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="roleUpdate" class="form-label">Rol(*)</label>
-                                            <select id="roleUpdate-{{ $user->id }}" class="form-control select2" name="roleUpdate" required onchange="toggleRoleSelect({{ $user->id }})" required>
+                                            <select id="roleUpdate-{{ $user->id }}" class="form-control select2" name="roleUpdate" required onchange="toggleTruckChange({{ $user->id }})" required>
                                                 @foreach($roles as $role)
-                                                    <option value="{{ $role->id }}" {{ $user->roles->contains($role->id) ? 'selected' : '' }}>
+                                                    <option value="{{ $role->id }}" {{ $user->roles->contains($role->id) ? 'selected' : '' }} data-change-truck="{{ $role->hasPermissionTo('selectTruck') ? 'true' : 'false' }}">
                                                         {{ $role->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6" id="truckContainer">
+                                        <div class="form-group">
+                                            <label for="truckUpdate" class="form-label">Trailer(*)</label>
+                                            <select id="truckUpdate-{{ $user->id }}" class="form-control select2" name="truckUpdate" required>
+                                                <option value="">No aplica</option>
+                                                @foreach($trucks as $truck)
+                                                    <option value="{{ $truck->id }}" {{ $user->truck_id == $truck->id ? 'selected' : '' }}>
+                                                        {{ $truck->license_plate }} / {{ $truck->brand }} / {{ $truck->model }} / {{ $truck->year }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -117,13 +130,28 @@
         reader.readAsDataURL(file);
     }
 
-    function toggleRoleSelect(userId) {
+    function toggleTruckChange(userId) {
         const roleSelect = document.getElementById('roleUpdate-' + userId);
+        const truckSelect = document.getElementById('truckUpdate-' + userId);
 
-        if (!roleSelect) return;
+        if (!roleSelect || !truckSelect) return;
 
         const selectedOption = roleSelect.options[roleSelect.selectedIndex];
+        const canSelectTruck = selectedOption.getAttribute('data-change-truck') === 'true';
+        truckSelect.disabled = !canSelectTruck;
+        if (!canSelectTruck) {
+            truckSelect.value = '';
+        }
     }
+
+    function assignTruckChangeEvent() {
+        document.querySelectorAll('[id^=roleUpdate-]').forEach((element) => {
+            const userId = element.id.split('-')[1];
+            toggleTruckChange(userId);
+            element.addEventListener('change', () => toggleTruckChange(userId));
+        });
+    }
+
 
     function resetForm(userId) {
         const form = document.getElementById('edit-user-form-' + userId);
@@ -135,7 +163,7 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-        assignLocalityChangeEvent();
+        assignTruckChangeEvent();
         document.querySelectorAll('[id^=cancel-button-]').forEach((button) => {
             const userId = button.id.split('-')[2];
             button.addEventListener('click', () => resetForm(userId));

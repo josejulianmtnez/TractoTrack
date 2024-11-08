@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Truck;
 
 class UserController extends Controller
 {
@@ -16,12 +17,14 @@ class UserController extends Controller
         $currentUserId = Auth::user()->id;
         $roles = Role::all();
         $users = User::where('id', '!=', $currentUserId)->get();
-        return view('users.index', compact('users', 'roles'));
+        $trucks = Truck::all();
+
+        return view('users.index', compact('users', 'roles', 'trucks'));
     }
 
     public function store(Request $request)
     {
-        $userData = $request->only('name', 'last_name', 'email', 'phone', 'password');
+        $userData = $request->only('name', 'last_name', 'email', 'phone', 'password', 'truck_id');
         $userData['password'] = bcrypt($userData['password']);
 
         $user = User::create($userData);
@@ -44,6 +47,8 @@ class UserController extends Controller
             $user->last_name = $request->input('lastNameUpdate');
             $user->phone = $request->input('phoneUpdate');
             $user->email = $request->input('emailUpdate');
+            $user->truck_id = $request->input('truckUpdate');
+
 
             $user->save();
 

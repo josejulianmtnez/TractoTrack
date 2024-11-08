@@ -65,15 +65,28 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="role" class="form-label">Rol(*)</label>
-                                            <select id="role_id" class="form-control select2" name="roles[]" required onchange="toggleRoleSelect()" required>
-                                                <option value="" data-select-locality="false">Selecciona el rol</option>
+                                            <select id="role_id" class="form-control select2" name="roles[]" required onchange="toggleTruckSelect()" required>
+                                                <option value="" data-select-truck="false">Selecciona el Rol</option>
                                                 @foreach($roles as $role)
-                                                <option value="{{ $role->id }}">
+                                                <option value="{{ $role->id }}" data-select-truck="{{ $role->hasPermissionTo('selectTruck') ? 'true' : 'false' }}" {{ old('role_id') == $role->id ? 'selected' : '' }}>
                                                     {{$role->name}}
                                                 </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6" id="truckContainer">
+                                        <div class="form-group">
+                                            <label for="truck" class="form-label">Trailer(*)</label>
+                                            <select id="truck_id" class="form-control select2" name="truck_id" required>
+                                                <option value="">Selecciona un Trailer</option>
+                                                @foreach($trucks as $truck)
+                                                    <option value="{{ $truck->id }}" {{ old('truck_id') == $truck->id ? 'selected' : '' }}>
+                                                        {{ $truck->license_plate }} - {{ $truck->brand }} - {{ $truck->model }} - {{ $truck->year }}
+                                                    </option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -126,11 +139,18 @@
         reader.readAsDataURL(file);
     }
 
-    function toggleRoleSelect() {
+    function toggleTruckSelect() {
         const roleSelect = document.getElementById('role_id');
+        const truckSelect = document.getElementById('truck_id');
         const selectedOption = roleSelect.options[roleSelect.selectedIndex];
+        const canSelectTruck = selectedOption.getAttribute('data-select-truck') === 'true';
+
+        truckSelect.disabled = !canSelectTruck;
+        if (!canSelectTruck) {
+            truckSelect.value = '';
+        }
     }
 
-    document.getElementById('role_id').onchange = toggleRoleSelect;
-    document.addEventListener('DOMContentLoaded', toggleRoleSelect);
+    document.getElementById('role_id').onchange = toggleTruckSelect;
+    document.addEventListener('DOMContentLoaded', toggleTruckSelect);
 </script>

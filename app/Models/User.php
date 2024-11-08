@@ -23,6 +23,7 @@ class User extends Authenticatable implements HasMedia
      * @var array<int, string>
      */
     protected $fillable = [
+        'truck_id',
         'name',
         'last_name',
         'email',
@@ -48,4 +49,14 @@ class User extends Authenticatable implements HasMedia
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function truck()
+    {
+        return $this->belongsTo(Truck::class, 'truck_id');
+    }
+
+    public function truckDriver()
+    {
+        return $this->hasOne(Truck::class, 'truck_driver_id');
+    }
 }

@@ -12,12 +12,12 @@
                             <div class="card-box head">
                                 <div class="row align-items-center">
                                     <div class="col-md-2 text-center">
-                                        {{-- @if ($authUser->getFirstMediaUrl('userGallery'))
+                                        @if ($authUser->getFirstMediaUrl('userGallery'))
                                             <img src="{{ $authUser->getFirstMediaUrl('userGallery') }}"
                                                 alt="Foto de {{ $authUser->name }}">
                                         @else
-                                            <img src="{{ asset('img/userDefault.png') }}">
-                                        @endif --}}
+                                            <img src="{{ asset('img/userDefault.png') }}" width="150px">
+                                        @endif
                                     </div>
 
                                     <div class="col-md-8">
