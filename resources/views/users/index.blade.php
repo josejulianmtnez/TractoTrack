@@ -31,6 +31,7 @@
                                             <th>TELEFONO</th>
                                             <th>EMAIL</th>
                                             <th>ROL</th>
+                                            <th>TRAILER</th>
                                             <th>OPCIONES</th>
                                         </tr>
                                     </thead>
@@ -58,6 +59,12 @@
                                                     <td>{{ $user->email }}</td>
                                                     <td>{{ $user->roles->first()->name }}</td>
                                                     <td>
+                                                        @if ($user->truck)
+                                                            {{ $user->truck->license_plate }} / {{ $user->truck->brand }} / {{ $user->truck->year }} / {{ $user->truck->model }}
+                                                        @else
+                                                            Sin asignar
+                                                        @endif
+                                                    </td>                                                    <td>
                                                         <div class="btn-group" role="group" aria-label="Opciones">
                                                             <button type="button" class="btn btn-info mr-2" data-toggle="modal" title="Ver Detalles" data-target="#view{{ $user->id }}">
                                                                 <i class="fas fa-eye"></i>

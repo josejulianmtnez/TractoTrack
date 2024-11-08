@@ -37,22 +37,32 @@
                                         <input type="text" disabled class="form-control" value="{{ $user->name }} {{ $user->last_name }}" />
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Teléfono</label>
                                         <input type="text" disabled class="form-control" value="{{ $user->phone }}" />
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Email</label>
                                         <input type="text" disabled class="form-control" value="{{ $user->email }}" />
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Rol</label>
                                         <input type="text" disabled class="form-control" value="{{ $user->roles->first()->name }}" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Trailer</label>
+                                        @if ($user->truck)
+                                            <input type="text" disabled class="form-control" value="{{ $user->truck->license_plate }} / {{ $user->truck->brand }} / {{ $user->truck->year }} / {{ $user->truck->model }}" />
+                                        @else
+                                            <input type="text" disabled class="form-control" value="Sin asignar" />
+                                        @endif
                                     </div>
                                 </div>
                             </div>

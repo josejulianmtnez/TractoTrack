@@ -318,6 +318,18 @@ return [
             'icon' => 'fa fa-home',
         ],
         [
+            'text' => 'Plataforma',
+            'url' => '/flatbeds',
+            'icon' => 'fas fa-fw fa-minus',
+            'can'  =>'viewFlatbeds',
+        ],
+        [
+            'text' => 'Trailers',
+            'url' => '/trucks',
+            'icon' => 'fas fa-fw fa-truck',
+            'can'  =>'viewTrucks',
+        ],
+        [
             'text' => 'Usuarios',
             'url' => '/users',
             'icon' => 'fas fa-fw fa-user',
@@ -326,7 +338,7 @@ return [
         [
             'text' => 'Diesel',
             'url' => '/fuel-loads',
-            'icon' => 'fas fa-gas-pump',
+            'icon' => 'fas fa-fw fa-gas-pump',
             'can'  =>'viewFuelLoads',
         ],
     ],
