@@ -19,13 +19,9 @@ class Truck extends Model
         'color',
     ];
 
-    public function truckDriver()
-    {
-        return $this->belongsTo(User::class, 'truck_driver_id');
-    }
-
     public function flatbed()
     {
         return $this->belongsTo(Flatbed::class, 'flatbed_id');
     }
+    
 }

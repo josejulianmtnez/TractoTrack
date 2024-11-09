@@ -29,12 +29,20 @@ class RolesAndPermissionsSeeder extends Seeder
             'description' => 'Permite ver las Plataformas registrados.'
         ])->assignRole($roleAdmin);
         Permission::create([
+            'name' => 'selectTruck',
+            'description' => 'Permite asignar Trailers a los Choferes.'
+            ])->assignRole($roleTruckDriver);    
+        Permission::create([
             'name' => 'viewFuelLoads',
             'description' => 'Permite ver las Cargas de Diesel'
         ])->assignRole([$roleAdmin, $roleTruckDriver]);
         Permission::create([
-            'name' => 'selectTruck',
-            'description' => 'Permite asignar Trailers a los Choferes.'
-        ])->assignRole($roleTruckDriver);    
+            'name' => 'viewFuelPayments',
+            'description' => 'Permite ver los Pagos de Diesel'
+        ])->assignRole([$roleAdmin]);
+        Permission::create([
+            'name' => 'viewFuelBalances',
+            'description' => 'Permite ver los Saldos de Diesel'
+        ])->assignRole([$roleAdmin]);
     }
 }

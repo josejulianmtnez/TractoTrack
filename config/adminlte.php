@@ -335,11 +335,24 @@ return [
             'icon' => 'fas fa-fw fa-user',
             'can'  =>'viewUsers',
         ],
+        ['header' => 'DIÉSEL'],
         [
-            'text' => 'Diesel',
+            'text' => 'Cargas',
             'url' => '/fuel-loads',
             'icon' => 'fas fa-fw fa-gas-pump',
             'can'  =>'viewFuelLoads',
+        ],
+        [
+            'text' => 'Pagos',
+            'url' => '/fuel-payments',
+            'icon' => 'fas fa-fw fa-dollar-sign',
+            'can'  =>'viewFuelPayments',
+        ],
+        [
+            'text' => 'Saldo',
+            'url' => '/fuel-balances',
+            'icon' => 'fas fa-fw fa-hand-holding-usd',
+            'can'  =>'viewFuelBalances',
         ],
     ],
 

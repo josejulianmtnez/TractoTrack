@@ -19,5 +19,8 @@ class DatabaseSeeder extends Seeder
         $this->call(FlatbedsTableSeeder::class);
         $this->call(TrucksTableSeeder::class);
         $this->call(UsersTableSeeder::class);
+        $this->call(FuelBalancesTableSeeder::class);
+        $this->call(FuelLoadsTableSeeder::class);
+        $this->call(FuelPaymentsTableSeeder::class);
     }
 }

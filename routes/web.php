@@ -6,6 +6,9 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TruckController;
 use App\Http\Controllers\FlatbedController;
+use App\Http\Controllers\FuelBalanceController;
+use App\Http\Controllers\FuelLoadController;
+use App\Http\Controllers\FuelPaymentController;
 
 Route::get('/', function () {
     return view('login');
@@ -37,5 +40,21 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['middleware' => ['can:viewFlatbeds']], function () {
         Route::get('/flatbeds', [FlatbedController::class, 'index'])->name('flatbeds.index');
         Route::resource('flatbeds', FlatbedController::class);
+    });
+    
+    Route::group(['middleware' => ['can:viewFuelLoads']], function () {
+        Route::get('/fuel-loads', [FuelLoadController::class, 'index'])->name('fuelLoads.index');
+        Route::resource('fuel-loads', FuelLoadController::class);
+    });
+    
+    Route::group(['middleware' => ['can:viewFuelPayments']], function () {
+        Route::get('/fuel-payments', [FuelPaymentController::class, 'index'])->name('fuelPayments.index');
+        Route::resource('fuel-payments', FuelPaymentController::class);
+    });
+    
+    Route::group(['middleware' => ['can:viewFuelBalances']], function () {
+        Route::get('/fuel-balances', [FuelBalanceController::class, 'index'])->name('fuelBalances.index');
+        Route::resource('fuel-balances', FuelBalanceController::class);
+
     });
 });
